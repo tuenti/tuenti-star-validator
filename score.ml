@@ -18,8 +18,8 @@ exception Already_used_call of used_call
 
 let score pops (calls : call array) connections =
   let queues = Array.init (Array.length pops)
-      ~f:(fun i -> Heap.create ~min_size:(pops.(i).capacity) ~cmp:compare ()) in
-  let connected = Array.create ~len:(Array.length calls) (-1) in
+      ~f:(fun i -> Heap.create ~min_size:(pops.(i).capacity) ~cmp:compare ())
+  and connected = Array.create ~len:(Array.length calls) (-1) in
   let add_connection score connection =
     let {i; call; pop; time} = connection in
     let assert_valid_connection () = 
@@ -41,13 +41,13 @@ let score pops (calls : call array) connections =
     connected.(call) <- i;
     Heap.add queues.(pop) (time + calls.(call).duration);
     (* Ranking by distance *)
-    let call = calls.(call) in
-    let pop = pops.(pop) in
-    let xdiff = (Float.of_int call.x) -. (Float.of_int pop.x) in
-    let ydiff = (Float.of_int call.y) -. (Float.of_int pop.y) in
+    let call = calls.(call)
+    and pop = pops.(pop) in
+    let xdiff = (Float.of_int call.x) -. (Float.of_int pop.x)
+    and ydiff = (Float.of_int call.y) -. (Float.of_int pop.y) in
     let distance = sqrt ((xdiff ** 2.) +. (ydiff ** 2.)) in
-    let stars = 5 - (Float.to_int (Float.round_down (distance /. 10.))) in
-    let delay = time - call.time in
+    let stars = 5 - (Float.to_int (Float.round_down (distance /. 10.)))
+    and delay = time - call.time in
     let stars = stars - (Float.to_int (Float.round_up ((Float.of_int delay) /. 10.))) in
     let stars = max stars 0 in
     score + stars in

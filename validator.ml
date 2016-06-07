@@ -9,9 +9,9 @@ type invalid_connection = {connection: int; format: string}
 exception Invalid_connection of invalid_connection
 
 let read_limits ic = bscanf ic "%d %d\n" (fun p k -> (p, k))
-let read_pop ic = bscanf ic "%d %d %d\n" (fun x y capacity -> {x; y; capacity})
-let read_call ic = bscanf ic "%d %d %d %d\n" (fun x y time duration -> {x; y; time; duration})
-let read_connection ic i = bscanf ic "%d %d %d\n" (fun call pop time -> {i; call; pop; time})
+and read_pop ic = bscanf ic "%d %d %d\n" (fun x y capacity -> {x; y; capacity})
+and read_call ic = bscanf ic "%d %d %d %d\n" (fun x y time duration -> {x; y; time; duration})
+and read_connection ic i = bscanf ic "%d %d %d\n" (fun call pop time -> {i; call; pop; time})
 
 let read_problem path =
   let ic = Scanning.open_in path in
