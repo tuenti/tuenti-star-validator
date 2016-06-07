@@ -19,14 +19,14 @@ exception Already_used_call of used_call
 let score pops (calls : call array) connections =
   let queues = Array.init (Array.length pops)
       ~f:(fun i -> Heap.create ~min_size:(pops.(i).capacity) ~cmp:compare ()) in
-  let connected = Array.create ~len:(Array.length calls) 0 in
+  let connected = Array.create ~len:(Array.length calls) (-1) in
   let add_connection score connection =
     let {i; call; pop; time} = connection in
     if pop < 0 || pop >= Array.length pops
     then raise (Invalid_pop {connection = i; pop})
     else if call < 0 || call >= Array.length calls
     then raise (Invalid_call {connection = i; call})
-    else if connected.(call) > 0
+    else if connected.(call) >= 0
     then raise (Already_used_call {connection1 = i; connection2 = connected.(call); call})
     else if time < calls.(call).time
     then raise (Invalid_time {connection = i; time; call_time =  calls.(call).time})
