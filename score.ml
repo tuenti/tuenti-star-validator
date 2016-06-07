@@ -37,9 +37,6 @@ let score pops (calls : call array) connections =
         then raise (Pop_full {connection = i; pop; time; free_time = top})
       end;
     connected.(call) <- i;
-    if false then
-      printf "Connection %d: Adding call %d to POP %d at time %d with duration %d until %d\n"
-        (i + 1) call pop time calls.(call).duration (time + (calls.(call).duration));
     Heap.add queues.(pop) (time + calls.(call).duration);
     (* Ranking by distance *)
     let call = calls.(call) in
