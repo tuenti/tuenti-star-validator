@@ -25,43 +25,43 @@ let test_score_error pops calls connections exn msg =
 let test_score pops calls connections expected =
   (fun () ->
      let score = score pops calls connections in
-     Alcotest.(check int) "test score" score expected)
+     Alcotest.(check int) "test score" score expected);;
 
 let score_error0 =
   let connections = [{i = 0; call = -1; pop = 0; time = 0}]
-  and exn = Invalid_call {connection = 1; call = -1} in
+  and exn = Invalid_call {connection = 0; call = -1} in
   test_score_error sample_pops sample_calls connections exn "negative call"
 
 let score_error1 =
   let connections = [{i = 0;call = 3; pop = 0; time = 0}]
-  and exn = Invalid_call {connection = 1; call = 3} in
+  and exn = Invalid_call {connection = 0; call = 3} in
   test_score_error sample_pops sample_calls connections exn "non-existant call"
 
 let score_error2 =
   let connections = [{i = 0;call = 0; pop = -1; time = 0}]
-  and exn = Invalid_pop {connection = 1; pop = -1} in
+  and exn = Invalid_pop {connection = 0; pop = -1} in
   test_score_error sample_pops sample_calls connections exn "negative pop"
 
 let score_error3 =
   let connections = [{i = 0;call = 0; pop = 1; time = 0}]
-  and exn = Invalid_pop {connection = 1; pop = 1} in
+  and exn = Invalid_pop {connection = 0; pop = 1} in
   test_score_error sample_pops sample_calls connections exn "non-existant pop"
 
 let score_error4 =
   let connections = [{i = 0;call = 0; pop = 0; time = -1}]
-  and exn = Invalid_time {connection = 1; time = -1; call_time = 0} in
+  and exn = Invalid_time {connection = 0; time = -1; call_time = 0} in
   test_score_error sample_pops sample_calls connections exn "negative time"
 
 let score_error5 =
   let connections = [{i = 0;call = 1; pop = 0; time = 0}]
-  and exn = Invalid_time {connection = 1; time = 0; call_time = 1} in
+  and exn = Invalid_time {connection = 0; time = 0; call_time = 1} in
   test_score_error sample_pops sample_calls connections exn "invalid time"
 
 let score_error6 =
   let connections = [{i = 0; call = 0; pop = 0; time = 0};
                      {i = 1; call = 1; pop = 0; time = 1};
                      {i = 2; call = 2; pop = 0; time = 1}]
-  and exn = Pop_full {connection = 3; pop = 0; time = 1; free_time = 2} in
+  and exn = Pop_full {connection = 2; pop = 0; time = 1; free_time = 2} in
   test_score_error sample_pops sample_calls connections exn "pop full"
 
 let score_error7 =
@@ -72,7 +72,7 @@ let score_error7 =
                      {i = 3; call = 5; pop = 1; time = 0};
                      {i = 4; call = 6; pop = 1; time = 0};
                      {i = 5; call = 7; pop = 1; time = 1}]
-  and exn = (Pop_full {connection = 6; pop = 1; time = 1; free_time = 10}) in
+  and exn = (Pop_full {connection = 5; pop = 1; time = 1; free_time = 10}) in
   test_score_error pair_of_pops calls connections exn "pops full"
 
 let score_error8 =
@@ -83,13 +83,13 @@ let score_error8 =
                      {i = 3; call = 5; pop = 1; time = 0};
                      {i = 4; call = 6; pop = 1; time = 2};
                      {i = 5; call = 7; pop = 1; time = 1}]
-  and exn = (Pop_full {connection = 5; pop = 1; time = 2; free_time = 10}) in
+  and exn = (Pop_full {connection = 4; pop = 1; time = 2; free_time = 10}) in
   test_score_error pair_of_pops calls connections exn "pops full"
 
 let score_error9 =
   let connections = [{i = 0; call = 0; pop = 0; time = 0};
                      {i = 1; call = 0; pop = 1; time = 0}]
-  and exn = (Already_used_call {connection1 = 2; connection2 = 1; call = 0}) in
+  and exn = (Already_used_call {connection1 = 1; connection2 = 0; call = 0}) in
   test_score_error pair_of_pops sample_calls connections exn "duplicated calls"
 
 let score_errors = [
@@ -233,3 +233,4 @@ let () =
     "score errors", score_errors;
     "score tests", score_tests;
   ]
+
