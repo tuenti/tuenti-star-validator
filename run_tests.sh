@@ -1,5 +1,5 @@
 if [ -f ./score_tests.native ]; then
-    ./score_tests.native -v
+    ./score_tests.native
 else
-    ./score_tests.byte -v
+    ./score_tests.byte
 fi
