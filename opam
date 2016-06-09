@@ -1,0 +1,27 @@
+opam-version: "1.2"
+name:         "tuenti-star-validator"
+homepage:     "https://github.com/tuenti/tuenti-star-validator"
+dev-repo:     "https://github.com/tuenti/tuenti-star-validator.git"
+bug-reports:  "https://github.com/tuenti/tuenti-star-validator/issues"
+authors:      ["Alfredo Beaumont <abeaumont@tuenti.com>"]
+maintainer:   ["Alfredo Beaumont <abeaumont@tuenti.com>"]
+license:      "Apache License 2.0"
+
+build: [
+  ["ocaml" "pkg/build.ml" "native=%{ocaml-native}%"
+                          "native-dynlink=%{ocaml-native-dynlink}%"
+                          "alcotest=false"]
+]
+build-test: [
+  ["ocaml" "pkg/build.ml" "native=%{ocaml-native}%"
+                          "native-dynlink=%{ocaml-native-dynlink}%"
+                          "alcotest=true"]
+  "./run_tests.sh"
+]
+depends: [
+  "ocamlfind" {build}
+  "ocamlbuild" {build}
+  "core" {build}
+  "alcotest" {test}
+]
+available: [ ocaml-version >= "4.01.0" ]
