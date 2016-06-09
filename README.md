@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tuenti/tuenti-star-validator.svg?branch=master)](https://travis-ci.org/tuenti/tuenti-star-validator)
+
 # Submission validator and score calculator for #TuentiChallenge6's Tuenti Star challenge
 
 The submission validator and score calculator used for the [20th challenge](https://contest.tuenti.net/Challenges?id=20) in [Tuenti Challenge 6](https://contest.tuenti.net). You can see problem description at DESCRIPTION.md and the input for the challenge at input.txt.
