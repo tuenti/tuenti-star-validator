@@ -1,0 +1,8 @@
+version = "0.1.0"
+description = "Submission validator and score calculator for #TuentiChallenge6's Tuenti Star challenge"
+requires = "core"
+archive(byte) = "score.cma"
+archive(byte, plugin) = "score.cma"
+archive(native) = "score.cmxa"
+archive(native, plugin) = "score.cmxs"
+exists_if = "score.cma"
