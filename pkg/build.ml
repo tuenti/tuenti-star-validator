@@ -3,7 +3,7 @@
 #use "topkg.ml";;
 
 let alcotest = Env.bool "alcotest"
-let () = Pkg.describe "tuenti-star-validator" ~builder:(`Other("corebuild" "_build")) [
+let () = Pkg.describe "tuenti-star-validator" ~builder:(`Other ("corebuild", "_build")) [
     Pkg.lib "pkg/META";
     Pkg.lib ~exts:Exts.module_library "score";
     Pkg.bin ~auto:true "validator";
